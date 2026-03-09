@@ -380,10 +380,6 @@
       <!-- Brand -->
       <a class="navbar-brand-wrapper" href="{% url 'home' %}">
         <img src="{% static 'icas/images/icas_logo.png' %}" alt="ICAS Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <div class="brand-title">International Centre for Applied Sciences</div>
-          <div class="brand-sub">Universal Engineering &amp; Science College &middot; Est. 2021</div>
-        </div>
       </a>
 
       <!-- Mobile toggle -->
@@ -395,7 +391,7 @@
 
       <!-- Nav links -->
       <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-3">
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
           </li>
@@ -420,13 +416,13 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'events' %}active{% endif %}" href="{% url 'events' %}">Events</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'events' or request.resolver_match.url_name == 'event_detail' %}active{% endif %}" href="{% url 'events' %}">Events</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'activities' %}active{% endif %}" href="{% url 'activities' %}">Activities</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'activities' or request.resolver_match.url_name == 'activity_detail' %}active{% endif %}" href="{% url 'activities' %}">Activities</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'news' %}active{% endif %}" href="{% url 'news' %}">News</a>
+            <a class="nav-link {% if request.resolver_match.url_name == 'news' or request.resolver_match.url_name == 'news_detail' %}active{% endif %}" href="{% url 'news' %}">News</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>

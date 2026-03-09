@@ -170,3 +170,122 @@ class Partner(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# ── Auto-delete uploaded files when records are deleted or replaced ──
+
+import os
+from django.db.models.signals import post_delete, pre_save
+from django.dispatch import receiver
+
+
+def _delete_file(file_field):
+    """Delete a file from disk if it exists."""
+    if file_field and hasattr(file_field, 'path'):
+        try:
+            if os.path.isfile(file_field.path):
+                os.remove(file_field.path)
+        except Exception:
+            pass
+
+
+# TeamMember photo
+@receiver(post_delete, sender=TeamMember)
+def delete_teammember_photo_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.photo)
+
+@receiver(pre_save, sender=TeamMember)
+def delete_teammember_photo_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = TeamMember.objects.get(pk=instance.pk)
+    except TeamMember.DoesNotExist:
+        return
+    if old.photo and old.photo != instance.photo:
+        _delete_file(old.photo)
+
+
+# Project image
+@receiver(post_delete, sender=Project)
+def delete_project_image_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.image)
+
+@receiver(pre_save, sender=Project)
+def delete_project_image_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = Project.objects.get(pk=instance.pk)
+    except Project.DoesNotExist:
+        return
+    if old.image and old.image != instance.image:
+        _delete_file(old.image)
+
+
+# Event image
+@receiver(post_delete, sender=Event)
+def delete_event_image_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.image)
+
+@receiver(pre_save, sender=Event)
+def delete_event_image_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = Event.objects.get(pk=instance.pk)
+    except Event.DoesNotExist:
+        return
+    if old.image and old.image != instance.image:
+        _delete_file(old.image)
+
+
+# News image
+@receiver(post_delete, sender=News)
+def delete_news_image_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.image)
+
+@receiver(pre_save, sender=News)
+def delete_news_image_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = News.objects.get(pk=instance.pk)
+    except News.DoesNotExist:
+        return
+    if old.image and old.image != instance.image:
+        _delete_file(old.image)
+
+
+# Activity image
+@receiver(post_delete, sender=Activity)
+def delete_activity_image_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.image)
+
+@receiver(pre_save, sender=Activity)
+def delete_activity_image_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = Activity.objects.get(pk=instance.pk)
+    except Activity.DoesNotExist:
+        return
+    if old.image and old.image != instance.image:
+        _delete_file(old.image)
+
+
+# Partner logo
+@receiver(post_delete, sender=Partner)
+def delete_partner_logo_on_delete(sender, instance, **kwargs):
+    _delete_file(instance.logo)
+
+@receiver(pre_save, sender=Partner)
+def delete_partner_logo_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = Partner.objects.get(pk=instance.pk)
+    except Partner.DoesNotExist:
+        return
+    if old.logo and old.logo != instance.logo:
+        _delete_file(old.logo)

@@ -1,0 +1,69 @@
+{% extends 'icas/base.html' %}
+
+{% block title %}Work Identity – ICAS{% endblock %}
+
+{% block content %}
+
+<!-- Page Header -->
+<div class="page-header">
+  <div class="container">
+    <h1>Work Identity (ICAS)</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Work Identity</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<!-- Activities List -->
+<section style="padding:70px 0;">
+  <div class="container">
+
+    {% for activity in activities %}
+    <div class="row g-5 align-items-start mb-5 pb-5 {% if not forloop.last %}border-bottom{% endif %}">
+
+      <!-- Image -->
+      <div class="col-md-4">
+        {% if activity.image %}
+        <img
+          src="{{ activity.image.url }}"
+          alt="{{ activity.title }}"
+          style="width:100%;border-radius:8px;object-fit:cover;max-height:260px;box-shadow:0 4px 16px rgba(0,0,0,.12);"
+        >
+        {% else %}
+        <div style="width:100%;height:220px;background:linear-gradient(135deg,#1a3a6b,#0b7a75);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <i class="bi bi-image" style="font-size:3rem;color:rgba(255,255,255,.3);"></i>
+        </div>
+        {% endif %}
+
+        <!-- Date badge below image -->
+        <div style="margin-top:.8rem;font-size:.82rem;color:#6c757d;">
+          <i class="bi bi-calendar3 me-1"></i>{{ activity.date|date:"F j, Y" }}
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="col-md-8">
+        <h4 style="color:#0d1f3c;font-family:'Playfair Display',serif;margin-bottom:1rem;">
+          {{ activity.title }}
+        </h4>
+        <p style="color:#4a5568;line-height:1.9;text-align:justify;font-size:.97rem;">
+          {{ activity.description }}
+        </p>
+      </div>
+
+    </div>
+    {% empty %}
+    <!-- Empty state -->
+    <div class="text-center py-5">
+      <i class="bi bi-journal-richtext" style="font-size:4rem;color:#dee2e6;"></i>
+      <h5 class="text-muted mt-3">No activities yet</h5>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+
+{% endblock %}

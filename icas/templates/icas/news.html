@@ -1,0 +1,50 @@
+{% extends 'icas/base.html' %}
+
+{% block title %}News & Updates – ICAS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>News & Updates</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">News</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section style="padding:70px 0;">
+  <div class="container">
+    <div class="row g-4">
+      {% for item in news_list %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-icas h-100">
+          <div class="card-top-bar"></div>
+          {% if item.image %}
+          <img src="{{ item.image.url }}" style="height:200px;object-fit:cover;width:100%;" alt="{{ item.title }}">
+          {% else %}
+          <div style="height:140px;background:linear-gradient(135deg,#1a3a6b,#0b7a75);display:flex;align-items:center;justify-content:center;">
+            <i class="bi bi-newspaper" style="font-size:3rem;color:rgba(255,255,255,.3);"></i>
+          </div>
+          {% endif %}
+          <div class="card-body p-4">
+            {% if item.is_featured %}<span class="badge mb-2" style="background:#fff3cd;color:#856404;">Featured</span>{% endif %}
+            <div style="font-size:.8rem;color:#6c757d;margin-bottom:.5rem;"><i class="bi bi-calendar3 me-1"></i>{{ item.date_posted|date:"F j, Y" }}</div>
+            <h5 style="color:#0d1f3c;font-size:1rem;">{{ item.title }}</h5>
+            <p style="font-size:.88rem;color:#6c757d;">{{ item.content|truncatechars:180 }}</p>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5">
+        <i class="bi bi-newspaper" style="font-size:3.5rem;color:#dee2e6;"></i>
+        <h5 class="text-muted mt-3">No news yet</h5>
+        <p class="text-muted">News and updates will appear here. Add them via the admin panel.</p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

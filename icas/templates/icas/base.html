@@ -1,0 +1,538 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}ICAS – International Centre for Applied Sciences{% endblock %}</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --icas-navy:    #0d1f3c;
+      --icas-blue:    #1a3a6b;
+      --icas-teal:    #0b7a75;
+      --icas-red:     #cc2126;
+      --icas-red-dark:#a81a1e;
+      --icas-light:   #f4f7fb;
+      --icas-white:   #ffffff;
+      --icas-gray:    #6c757d;
+      --icas-border:  #dee2e6;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      color: #2c3e50;
+      background: #fff;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Navbar ── */
+    .navbar-icas {
+      background: var(--icas-navy);
+      padding: 0;
+      box-shadow: 0 2px 12px rgba(0,0,0,.25);
+    }
+
+    /* Top info bar */
+    .navbar-icas .top-bar {
+      background: var(--icas-blue);
+      font-size: .78rem;
+      padding: 6px 0;
+      color: rgba(255,255,255,.8);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .navbar-icas .top-bar a { color: rgba(255,255,255,.8); text-decoration: none; }
+    .navbar-icas .top-bar a:hover { color: var(--icas-red); }
+
+    /* Main nav row */
+    .navbar-icas .main-nav-row {
+      display: flex;
+      align-items: center;
+      padding: 0;
+      min-height: 64px;
+    }
+
+    /* Brand */
+    .navbar-brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+      padding: 8px 0;
+    }
+    .navbar-brand-wrapper .brand-logo-img {
+      height: 48px;
+      width: auto;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .navbar-brand-wrapper .brand-text {
+      line-height: 1.25;
+      border-left: 2px solid rgba(255,255,255,.2);
+      padding-left: 10px;
+    }
+    .navbar-brand-wrapper .brand-text .brand-title {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: .88rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .navbar-brand-wrapper .brand-text .brand-sub {
+      color: var(--icas-red);
+      font-size: .67rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* Nav links */
+    .navbar-icas .nav-link {
+      color: rgba(255,255,255,.85) !important;
+      font-size: .88rem;
+      font-weight: 500;
+      padding: 1.2rem .75rem !important;
+      transition: color .2s, border-bottom .2s;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+    }
+    .navbar-icas .nav-link:hover,
+    .navbar-icas .nav-link.active {
+      color: var(--icas-red) !important;
+      border-bottom-color: var(--icas-red);
+    }
+    .navbar-icas .dropdown-menu {
+      border: none;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.15);
+      border-top: 3px solid var(--icas-red);
+    }
+    .navbar-icas .dropdown-item:hover { background: var(--icas-light); color: var(--icas-red); }
+
+    /* ── Page Header ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--icas-navy) 0%, var(--icas-blue) 70%, #1f4080 100%);
+      padding: 60px 0 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    /* Red left accent bar on page header */
+    .page-header::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 5px;
+      background: var(--icas-red);
+    }
+    .page-header h1 { color: #fff; font-size: 2.4rem; }
+    .page-header .breadcrumb { background: transparent; margin: 0; padding: 0; }
+    .page-header .breadcrumb-item, .page-header .breadcrumb-item a { color: rgba(255,255,255,.75); font-size: .85rem; text-decoration: none; }
+    .page-header .breadcrumb-item.active { color: var(--icas-red); }
+    .page-header .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.5); }
+
+    /* ── Section Titles ── */
+    .section-title {
+      font-size: 2rem;
+      color: var(--icas-navy);
+      position: relative;
+      margin-bottom: 0.5rem;
+    }
+    .section-divider {
+      width: 60px; height: 4px;
+      background: var(--icas-red);
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    .section-divider.center { margin-left: auto; margin-right: auto; }
+
+    /* ── Cards ── */
+    .card-icas {
+      border: 1px solid var(--icas-border);
+      border-radius: 12px;
+      transition: transform .25s, box-shadow .25s;
+      overflow: hidden;
+    }
+    .card-icas:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(204,33,38,.1);
+    }
+    .card-icas .card-top-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--icas-red), var(--icas-blue));
+    }
+
+    /* ── Research Area Icon Cards ── */
+    .research-icon-box {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      border-radius: 12px;
+      background: var(--icas-light);
+      transition: all .25s;
+      height: 100%;
+    }
+    .research-icon-box:hover {
+      background: var(--icas-navy);
+      color: #fff;
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,.15);
+    }
+    .research-icon-box .icon-wrap {
+      width: 64px; height: 64px;
+      background: linear-gradient(135deg, var(--icas-blue), var(--icas-teal));
+      border-radius: 16px;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; color: #fff;
+      margin-bottom: 1rem;
+    }
+    .research-icon-box:hover .icon-wrap {
+      background: linear-gradient(135deg, var(--icas-red), #e8474c);
+    }
+    .research-icon-box h5 { font-size: 1rem; font-weight: 600; }
+
+    /* ── Stats ── */
+    .stat-card {
+      text-align: center;
+      padding: 2rem;
+      background: rgba(255,255,255,.08);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .stat-card .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--icas-red);
+      line-height: 1;
+    }
+    .stat-card .stat-label { color: rgba(255,255,255,.8); font-size: .9rem; margin-top: .4rem; }
+
+    /* ── Team Cards ── */
+    .team-card .photo-wrap {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      background: var(--icas-light);
+      margin: 0 auto 1rem;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      border: 3px solid var(--icas-red);
+    }
+    .team-card .photo-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .team-card .photo-wrap .initials {
+      font-size: 2rem; font-weight: 700;
+      color: var(--icas-red);
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* ── Publication ── */
+    .pub-card {
+      border-left: 4px solid var(--icas-red);
+      padding: 1.2rem 1.5rem;
+      background: var(--icas-light);
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1rem;
+      transition: border-color .2s;
+    }
+    .pub-card:hover { border-left-color: var(--icas-blue); }
+    .pub-badge {
+      font-size: .7rem;
+      padding: .25rem .6rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    /* ── Event Card ── */
+    .event-card .event-date {
+      background: var(--icas-red);
+      color: #fff;
+      padding: .6rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 60px;
+    }
+    .event-card .event-date .day { font-size: 1.6rem; font-weight: 700; line-height: 1; }
+    .event-card .event-date .month { font-size: .7rem; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.8); }
+
+    /* ── Footer ── */
+    footer.site-footer {
+      background: var(--icas-navy);
+      color: rgba(255,255,255,.8);
+      padding: 60px 0 0;
+    }
+    footer.site-footer h5 {
+      color: #fff;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 1.2rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--icas-red);
+      display: inline-block;
+    }
+    footer.site-footer a { color: rgba(255,255,255,.7); text-decoration: none; font-size: .9rem; }
+    footer.site-footer a:hover { color: var(--icas-red); }
+    footer.site-footer .footer-bottom {
+      background: rgba(0,0,0,.3);
+      padding: 16px 0;
+      margin-top: 40px;
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+    }
+    footer.site-footer .social-links a {
+      width: 36px; height: 36px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      margin-right: 8px;
+      transition: all .2s;
+    }
+    footer.site-footer .social-links a:hover {
+      background: var(--icas-red);
+      border-color: var(--icas-red);
+      color: #fff;
+    }
+
+    /* ── Buttons ── */
+    .btn-icas-primary {
+      background: var(--icas-red);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: .6rem 1.4rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .btn-icas-primary:hover { background: var(--icas-red-dark); color: #fff; }
+
+    .btn-icas-primary {
+      background: var(--icas-blue);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: .6rem 1.4rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .btn-icas-primary:hover { background: var(--icas-navy); color: #fff; }
+
+    .btn-icas-outline {
+      border: 2px solid var(--icas-red);
+      color: var(--icas-red);
+      border-radius: 6px;
+      padding: .55rem 1.4rem;
+      font-weight: 500;
+      transition: all .2s;
+    }
+    .btn-icas-outline:hover { background: var(--icas-red); color: #fff; }
+
+    /* ── Misc ── */
+    .bg-icas-navy { background: var(--icas-navy); }
+    .bg-icas-light { background: var(--icas-light); }
+    .text-icas-red  { color: var(--icas-red); }
+    .text-icas-blue { color: var(--icas-blue); }
+    .text-icas-teal { color: var(--icas-teal); }
+
+    .badge-journal    { background: #e3f2fd; color: #0d47a1; }
+    .badge-conference { background: #fdecea; color: #cc2126; }
+    .badge-book       { background: #e8f5e9; color: #1b5e20; }
+    .badge-report     { background: #fff3e0; color: #e65100; }
+  </style>
+
+  {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+<!-- ═══════════════════════ NAVBAR ═══════════════════════ -->
+<header class="navbar-icas sticky-top">
+
+  <!-- Top info bar -->
+  <div class="top-bar d-none d-lg-block">
+    <div class="container d-flex justify-content-between align-items-center">
+      <span><i class="bi bi-geo-alt-fill me-1"></i>137/20 Manido Marg, Chakupat-11, Lalitpur, Nepal</span>
+      <span>
+        <a href="mailto:info@icas.edu.np" class="me-3"><i class="bi bi-envelope me-1"></i>info@icas.edu.np</a>
+        <a href="tel:+977-1-0000000"><i class="bi bi-telephone me-1"></i>+977-1-0000000</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- Main nav row -->
+  <nav class="navbar navbar-expand-lg" style="background:var(--icas-navy);padding:0;">
+    <div class="container">
+
+      <!-- Brand -->
+      <a class="navbar-brand-wrapper" href="{% url 'home' %}">
+        <img src="{% static 'icas/images/icas_logo.png' %}" alt="ICAS Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <div class="brand-title">International Centre for Applied Sciences</div>
+          <div class="brand-sub">Universal Engineering &amp; Science College &middot; Est. 2021</div>
+        </div>
+      </a>
+
+      <!-- Mobile toggle -->
+      <button class="navbar-toggler border-0 ms-auto" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navMain"
+              aria-controls="navMain" aria-expanded="false">
+        <span class="navbar-toggler-icon" style="filter:invert(1)"></span>
+      </button>
+
+      <!-- Nav links -->
+      <div class="collapse navbar-collapse" id="navMain">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'research,project_detail' %}active{% endif %}"
+               href="#" data-bs-toggle="dropdown">Research</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'research' %}">Research Areas</a></li>
+              <li><a class="dropdown-item" href="{% url 'research' %}#projects">Projects</a></li>
+              <li><a class="dropdown-item" href="{% url 'publications' %}">Publications</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'team,contact_personnel' %}active{% endif %}"
+               href="#" data-bs-toggle="dropdown">Team</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'team' %}">Our Team</a></li>
+              <li><a class="dropdown-item" href="{% url 'contact_personnel' %}">Contact Personnel</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'events' %}active{% endif %}" href="{% url 'events' %}">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'activities' %}active{% endif %}" href="{% url 'activities' %}">Activities</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'news' %}active{% endif %}" href="{% url 'news' %}">News</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact</a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+</header>
+
+<!-- ═══════════════════════ MESSAGES ═══════════════════════ -->
+{% if messages %}
+<div class="container mt-3">
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- ═══════════════════════ PAGE CONTENT ═══════════════════════ -->
+{% block content %}{% endblock %}
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-5">
+      <!-- About -->
+      <div class="col-lg-4">
+        <div class="d-flex align-items-center gap-3 mb-3">
+          <img src="{% static 'icas/images/icas_logo.png' %}" alt="ICAS Logo" style="height:40px;width:auto;object-fit:contain;flex-shrink:0;">
+          <div>
+            <div style="color:#fff;font-family:'Playfair Display',serif;font-weight:700;font-size:.95rem;">ICAS</div>
+            <div style="color:var(--icas-red);font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;">International Centre for Applied Sciences</div>
+          </div>
+        </div>
+        <p style="font-size:.88rem;line-height:1.7;">
+          Established in 2021 as a prominent research institution within Nepal's academic landscape,
+          committed to advancing knowledge through research, consulting, and education.
+        </p>
+        <div class="social-links mt-3">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter-x"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="col-sm-6 col-lg-2">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="{% url 'home' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Home</a></li>
+          <li class="mb-2"><a href="{% url 'about' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>About Us</a></li>
+          <li class="mb-2"><a href="{% url 'research' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Research</a></li>
+          <li class="mb-2"><a href="{% url 'team' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Our Team</a></li>
+          <li class="mb-2"><a href="{% url 'contact_personnel' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Contact Personnel</a></li>
+          <li class="mb-2"><a href="{% url 'publications' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Publications</a></li>
+          <li class="mb-2"><a href="{% url 'contact' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Research -->
+      <div class="col-sm-6 col-lg-2">
+        <h5>Research</h5>
+        <ul class="list-unstyled">
+          <li class="mb-2"><a href="{% url 'research' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Areas</a></li>
+          <li class="mb-2"><a href="{% url 'research' %}#projects"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Projects</a></li>
+          <li class="mb-2"><a href="{% url 'publications' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Publications</a></li>
+          <li class="mb-2"><a href="{% url 'activities' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Activities</a></li>
+          <li class="mb-2"><a href="{% url 'events' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>Events</a></li>
+          <li class="mb-2"><a href="{% url 'news' %}"><i class="bi bi-chevron-right me-1 text-icas-red" style="font-size:.75rem;"></i>News</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div class="col-lg-4">
+        <h5>Contact</h5>
+        <ul class="list-unstyled" style="font-size:.88rem;">
+          <li class="mb-3 d-flex gap-3">
+            <i class="bi bi-geo-alt-fill text-icas-red mt-1" style="flex-shrink:0"></i>
+            <span>137/20 Manido Marg, Chakupat-11, Lalitpur Metropolitan City, Bagmati Province, Nepal</span>
+          </li>
+          <li class="mb-2"><i class="bi bi-envelope-fill text-icas-red me-2"></i><a href="mailto:info@icas.edu.np">info@icas.edu.np</a></li>
+          <li class="mb-2"><i class="bi bi-telephone-fill text-icas-red me-2"></i><a href="tel:+977-1-0000000">+977-1-0000000</a></li>
+          <li class="mb-2"><i class="bi bi-clock-fill text-icas-red me-2"></i>Sun–Fri: 9:00 AM – 5:00 PM</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center">
+      <span>© 2024 International Centre for Applied Sciences (ICAS). All rights reserved.</span>
+      <span class="mt-2 mt-md-0">A unit of <a href="#" style="color:var(--icas-red);">Universal Engineering & Science College</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

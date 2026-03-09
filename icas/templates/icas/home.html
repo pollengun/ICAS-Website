@@ -1,0 +1,369 @@
+{% extends 'icas/base.html' %}
+{% load static %}
+
+{% block title %}ICAS – International Centre for Applied Sciences | Home{% endblock %}
+
+{% block content %}
+
+<!-- ══ HERO ══ -->
+<section style="background:linear-gradient(135deg,#0d1f3c 0%,#1a3a6b 55%,#0b7a75 100%);min-height:88vh;display:flex;align-items:center;position:relative;overflow:hidden;">
+  <!-- Decorative circles -->
+  <div style="position:absolute;top:-80px;right:-80px;width:400px;height:400px;border-radius:50%;background:rgba(204,33,38,.08);"></div>
+  <div style="position:absolute;bottom:-120px;left:-60px;width:500px;height:500px;border-radius:50%;background:rgba(11,122,117,.12);"></div>
+
+  <div class="container position-relative">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-7">
+        <span style="background:rgba(204,33,38,.12);color:#cc2126;padding:.35rem 1rem;border-radius:20px;font-size:.82rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;border:1px solid rgba(204,33,38,.35);">
+          Est. 2021 · Lalitpur, Nepal
+        </span>
+        <h1 style="color:#fff;font-size:clamp(2rem,5vw,3.4rem);line-height:1.15;margin-top:1.2rem;margin-bottom:1rem;">
+          Advancing Knowledge<br>Through <span style="color:#cc2126;">Applied Science</span><br>& Innovation
+        </h1>
+        <p style="color:rgba(255,255,255,.78);font-size:1.1rem;max-width:540px;line-height:1.75;margin-bottom:2rem;">
+          The International Centre for Applied Sciences (ICAS) is committed to high-quality research,
+          consultancy, and education — shaping Nepal's future and making a meaningful global impact.
+        </p>
+        <div class="d-flex flex-wrap gap-3">
+          <a href="{% url 'research' %}" class="btn btn-icas-primary px-4 py-2" style="background:#cc2126;color:#0d1f3c;border:none;border-radius:6px;font-weight:600;">
+            <i class="bi bi-flask me-2"></i>Explore Research
+          </a>
+          <a href="{% url 'about' %}" class="btn btn-outline-light px-4 py-2" style="border-radius:6px;">
+            <i class="bi bi-info-circle me-2"></i>About ICAS
+          </a>
+        </div>
+      </div>
+
+      <!-- Stats -->
+      <div class="col-lg-5">
+        <div class="row g-3">
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">{{ stats.publications }}+</div>
+              <div class="stat-label"><i class="bi bi-journal-text me-1"></i>Publications</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">{{ stats.projects }}+</div>
+              <div class="stat-label"><i class="bi bi-folder2-open me-1"></i>Projects</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">{{ stats.team_members }}+</div>
+              <div class="stat-label"><i class="bi bi-people me-1"></i>Researchers</div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="stat-card">
+              <div class="stat-number">{{ stats.events }}+</div>
+              <div class="stat-label"><i class="bi bi-calendar-event me-1"></i>Events</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MISSION STRIP ══ -->
+<section style="background:#f4f7fb;padding:40px 0;border-top:4px solid #cc2126;">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-md-4 d-flex align-items-start gap-3">
+        <div style="width:48px;height:48px;background:#1a3a6b;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="bi bi-bullseye" style="color:#cc2126;font-size:1.4rem;"></i>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#0d1f3c;font-family:'Playfair Display',serif;">Our Mission</div>
+          <div style="font-size:.88rem;color:#6c757d;line-height:1.6;">High-quality research, consultancy & education in Nepal and beyond.</div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-start gap-3">
+        <div style="width:48px;height:48px;background:#1a3a6b;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="bi bi-eye" style="color:#cc2126;font-size:1.4rem;"></i>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#0d1f3c;font-family:'Playfair Display',serif;">Our Vision</div>
+          <div style="font-size:.88rem;color:#6c757d;line-height:1.6;">A worldwide hub driving positive transformation through cutting-edge knowledge.</div>
+        </div>
+      </div>
+      <div class="col-md-4 d-flex align-items-start gap-3">
+        <div style="width:48px;height:48px;background:#1a3a6b;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <i class="bi bi-globe2" style="color:#cc2126;font-size:1.4rem;"></i>
+        </div>
+        <div>
+          <div style="font-weight:700;color:#0d1f3c;font-family:'Playfair Display',serif;">Global Impact</div>
+          <div style="font-size:.88rem;color:#6c757d;line-height:1.6;">Cross-border research collaborations and international partnerships.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ RESEARCH AREAS ══ -->
+<section style="padding:80px 0;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Research Areas</h2>
+      <div class="section-divider center"></div>
+      <p class="text-muted" style="max-width:600px;margin:0 auto;">Multidisciplinary research spanning environmental science, technology, social development, and applied sciences.</p>
+    </div>
+
+    {% if research_areas %}
+    <div class="row g-4">
+      {% for area in research_areas %}
+      <div class="col-sm-6 col-lg-4">
+        <div class="research-icon-box h-100">
+          <div class="icon-wrap"><i class="bi {{ area.icon }}"></i></div>
+          <h5>{{ area.title }}</h5>
+          <p style="font-size:.88rem;margin-bottom:0;color:inherit;opacity:.8;">{{ area.description|truncatechars:120 }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <!-- Placeholder cards -->
+    <div class="row g-4">
+      {% for item in "123456" %}
+      <div class="col-sm-6 col-lg-4">
+        <div class="research-icon-box h-100">
+          <div class="icon-wrap"><i class="bi bi-microscope"></i></div>
+          <h5>Sample Research Area</h5>
+          <p style="font-size:.88rem;margin-bottom:0;opacity:.8;">Add research areas via the admin panel to display them here.</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="text-center mt-4">
+      <a href="{% url 'research' %}" class="btn-icas-outline btn">View All Research Areas <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ONGOING PROJECTS ══ -->
+{% if ongoing_projects %}
+<section style="padding:80px 0;background:#f4f7fb;">
+  <div class="container">
+    <div class="row align-items-end mb-4">
+      <div class="col">
+        <h2 class="section-title">Ongoing Projects</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'research' %}#projects" class="btn-icas-outline btn btn-sm">View All <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for project in ongoing_projects %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-icas h-100">
+          <div class="card-top-bar"></div>
+          <div class="card-body p-4">
+            <span class="badge" style="background:#e8f5e9;color:#1b5e20;font-size:.72rem;margin-bottom:.75rem;display:inline-block;">
+              <i class="bi bi-circle-fill me-1" style="font-size:.5rem;"></i>Ongoing
+            </span>
+            <h5 style="font-size:1rem;color:#0d1f3c;">{{ project.title }}</h5>
+            <p style="font-size:.87rem;color:#6c757d;">{{ project.description|truncatechars:130 }}</p>
+            {% if project.funding_agency %}
+            <div style="font-size:.8rem;color:#6c757d;"><i class="bi bi-bank me-1"></i>{{ project.funding_agency }}</div>
+            {% endif %}
+          </div>
+          <div class="card-footer bg-transparent border-0 px-4 pb-4">
+            <a href="{% url 'project_detail' project.pk %}" class="btn-icas-primary btn btn-sm">Learn More</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ══ RECENT PUBLICATIONS ══ -->
+{% if recent_publications %}
+<section style="padding:80px 0;">
+  <div class="container">
+    <div class="row align-items-end mb-4">
+      <div class="col">
+        <h2 class="section-title">Recent Publications</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'publications' %}" class="btn-icas-outline btn btn-sm">All Publications <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+    {% for pub in recent_publications %}
+    <div class="pub-card">
+      <div class="d-flex flex-wrap gap-2 align-items-start mb-2">
+        <span class="pub-badge badge badge-{{ pub.pub_type }}">{{ pub.get_pub_type_display }}</span>
+        <span class="pub-badge badge" style="background:#f5f5f5;color:#555;">{{ pub.year }}</span>
+      </div>
+      <h6 style="color:#0d1f3c;margin-bottom:.3rem;">{{ pub.title }}</h6>
+      <div style="font-size:.85rem;color:#6c757d;">{{ pub.authors }}</div>
+      {% if pub.journal_or_venue %}<div style="font-size:.82rem;color:#0b7a75;margin-top:.3rem;font-style:italic;">{{ pub.journal_or_venue }}</div>{% endif %}
+      {% if pub.doi %}<a href="https://doi.org/{{ pub.doi }}" target="_blank" style="font-size:.8rem;"><i class="bi bi-link-45deg me-1"></i>DOI: {{ pub.doi }}</a>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- ══ TEAM PREVIEW ══ -->
+{% if team_leaders %}
+<section style="padding:80px 0;background:#f4f7fb;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Meet Our Team</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4 justify-content-center">
+      {% for member in team_leaders %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card card-icas text-center p-4 team-card h-100">
+          <div class="photo-wrap mx-auto">
+            {% if member.photo %}
+            <img src="{{ member.photo.url }}" alt="{{ member.name }}">
+            {% else %}
+            <span class="initials">{{ member.name|first }}</span>
+            {% endif %}
+          </div>
+          <h6 style="color:#0d1f3c;margin-bottom:.2rem;">{{ member.name }}</h6>
+          <div style="font-size:.8rem;color:#0b7a75;margin-bottom:.5rem;">{{ member.designation }}</div>
+          <span class="badge" style="background:#e3f2fd;color:#0d47a1;font-size:.72rem;">{{ member.get_role_display }}</span>
+          {% if member.email %}
+          <div class="mt-3"><a href="mailto:{{ member.email }}" style="color:#6c757d;font-size:.82rem;"><i class="bi bi-envelope me-1"></i>{{ member.email }}</a></div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+      <a href="{% url 'team' %}" class="btn-icas-outline btn">Full Team Directory <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ══ UPCOMING EVENTS ══ -->
+{% if featured_events %}
+<section style="padding:80px 0;">
+  <div class="container">
+    <div class="row align-items-end mb-4">
+      <div class="col">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="section-divider"></div>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'events' %}" class="btn-icas-outline btn btn-sm">All Events <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for event in featured_events %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card card-icas event-card h-100">
+          <div class="card-top-bar"></div>
+          <div class="card-body p-4">
+            <div class="d-flex gap-3 align-items-start mb-3">
+              <div class="event-date">
+                <div class="day">{{ event.date|date:"d" }}</div>
+                <div class="month">{{ event.date|date:"M Y" }}</div>
+              </div>
+              <div>
+                <span class="badge" style="background:#f3e5f5;color:#4a148c;font-size:.7rem;margin-bottom:.4rem;display:inline-block;">{{ event.get_event_type_display }}</span>
+                <h6 style="color:#0d1f3c;margin-bottom:.2rem;font-size:.95rem;">{{ event.title }}</h6>
+              </div>
+            </div>
+            <div style="font-size:.84rem;color:#6c757d;"><i class="bi bi-geo-alt me-1"></i>{{ event.venue }}</div>
+            {% if event.registration_link %}
+            <a href="{{ event.registration_link }}" class="btn-icas-primary btn btn-sm mt-3" target="_blank">Register Now</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ══ OBJECTIVES STRIP ══ -->
+<section style="padding:80px 0;background:linear-gradient(135deg,#0d1f3c,#1a3a6b);">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 style="color:#fff;font-family:'Playfair Display',serif;">Our Core Objectives</h2>
+      <div class="section-divider center"></div>
+    </div>
+    <div class="row g-4">
+      {% for obj in objectives %}
+      <div class="col-md-6 col-lg-3">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1.8rem;height:100%;">
+          <div style="width:50px;height:50px;background:var(--icas-red);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <i class="bi {{ obj.icon }}" style="font-size:1.4rem;color:#0d1f3c;"></i>
+          </div>
+          <h6 style="color:#fff;font-family:'Playfair Display',serif;">{{ obj.title }}</h6>
+          <p style="color:rgba(255,255,255,.65);font-size:.87rem;margin:0;">{{ obj.text }}</p>
+        </div>
+      </div>
+      {% empty %}
+      {% for obj in default_objectives %}
+      <div class="col-md-6 col-lg-3">
+        <div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:12px;padding:1.8rem;height:100%;">
+          <div style="width:50px;height:50px;background:#cc2126;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem;">
+            <i class="bi {{ obj.icon }}" style="font-size:1.4rem;color:#0d1f3c;"></i>
+          </div>
+          <h6 style="color:#fff;font-family:'Playfair Display',serif;">{{ obj.title }}</h6>
+          <p style="color:rgba(255,255,255,.65);font-size:.87rem;margin:0;">{{ obj.text }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ══ PARTNERS ══ -->
+{% if partners %}
+<section style="padding:60px 0;background:#f4f7fb;">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h5 style="color:#6c757d;text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;">Collaborators & Partners</h5>
+    </div>
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
+      {% for partner in partners %}
+      <a href="{{ partner.website }}" target="_blank" style="display:block;opacity:.6;transition:opacity .2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.6">
+        {% if partner.logo %}
+        <img src="{{ partner.logo.url }}" alt="{{ partner.name }}" style="height:50px;object-fit:contain;">
+        {% else %}
+        <span style="font-weight:600;color:#0d1f3c;font-family:'Playfair Display',serif;">{{ partner.name }}</span>
+        {% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ══ CTA ══ -->
+<section style="padding:80px 0;background:#fff;">
+  <div class="container text-center">
+    <h2 class="section-title">Collaborate With Us</h2>
+    <div class="section-divider center"></div>
+    <p class="text-muted" style="max-width:550px;margin:0 auto 2rem;">Whether you are a researcher, institution, or industry partner — we welcome collaboration to drive meaningful change.</p>
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      <a href="{% url 'contact' %}" class="btn-icas-primary btn px-4 py-2">Get In Touch <i class="bi bi-arrow-right ms-2"></i></a>
+      <a href="{% url 'research' %}" class="btn-icas-outline btn px-4 py-2">Our Research</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Default objectives data (shown when no DB entries exist)
+</script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'icas/base.html' %}
+{% load static %}
+
+{% block title %}Contact Personnel – ICAS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Contact Personnel</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Contact Personnel</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section style="padding:70px 0;">
+  <div class="container">
+
+    {% for person in personnel %}
+    <div class="card mb-4" style="border:1px solid #dee2e6;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);">
+      <div class="row g-0 align-items-center">
+
+        <!-- Photo -->
+        <div class="col-auto" style="padding:1.5rem 1rem 1.5rem 1.5rem;">
+          <div style="width:160px;height:190px;overflow:hidden;border-radius:8px;background:#f4f7fb;flex-shrink:0;">
+            {% if person.photo %}
+              <img src="{{ person.photo.url }}" alt="{{ person.name }}"
+                   style="width:100%;height:100%;object-fit:cover;object-position:top;">
+            {% else %}
+              <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#f4f7fb;">
+                <i class="bi bi-person-fill" style="font-size:4rem;color:#dee2e6;"></i>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="col" style="padding:1.5rem;">
+          <h4 style="color:#0d1f3c;font-family:'Playfair Display',serif;margin-bottom:.6rem;">
+            {{ person.name }}
+          </h4>
+
+          {% if person.designation %}
+          <p style="margin-bottom:.3rem;font-size:.95rem;color:#2c3e50;">
+            <strong>{{ person.designation }}</strong>
+          </p>
+          {% endif %}
+
+          {% if person.department %}
+          <p style="margin-bottom:.3rem;font-size:.92rem;color:#4a5568;">
+            {{ person.department }}
+          </p>
+          {% endif %}
+
+          {% if person.qualification %}
+          <p style="margin-bottom:.3rem;font-size:.92rem;color:#4a5568;">
+            {{ person.qualification }}
+          </p>
+          {% endif %}
+
+          {% if person.university %}
+          <p style="margin-bottom:.3rem;font-size:.92rem;color:#4a5568;">
+            {{ person.university }}
+          </p>
+          {% endif %}
+
+          {% if person.email %}
+          <p style="margin-bottom:.3rem;font-size:.92rem;color:#2c3e50;">
+            Email : <a href="mailto:{{ person.email }}" style="color:#cc2126;text-decoration:none;">{{ person.email }}</a>
+          </p>
+          {% endif %}
+
+          {% if person.phone %}
+          <p style="margin-bottom:0;font-size:.92rem;color:#2c3e50;">
+            Contact : {{ person.phone }}
+          </p>
+          {% endif %}
+        </div>
+
+      </div>
+    </div>
+    {% empty %}
+    <div class="text-center py-5">
+      <i class="bi bi-people" style="font-size:4rem;color:#dee2e6;"></i>
+      <h5 class="text-muted mt-3">No contact personnel listed yet</h5>
+    </div>
+    {% endfor %}
+
+  </div>
+</section>
+{% endblock %}

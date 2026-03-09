@@ -1,0 +1,301 @@
+[
+  {
+    "model": "icas.researcharea",
+    "pk": 1,
+    "fields": {
+      "title": "Environmental Sciences",
+      "description": "Research focused on climate change, environmental monitoring, water quality, and ecosystem sustainability in Nepal and the Himalayan region.",
+      "icon": "bi-tree",
+      "order": 1
+    }
+  },
+  {
+    "model": "icas.researcharea",
+    "pk": 2,
+    "fields": {
+      "title": "Renewable Energy",
+      "description": "Exploring solar, hydropower, wind, and biomass energy solutions suitable for Nepal's geography and energy needs.",
+      "icon": "bi-lightning-charge",
+      "order": 2
+    }
+  },
+  {
+    "model": "icas.researcharea",
+    "pk": 3,
+    "fields": {
+      "title": "Applied Technology",
+      "description": "Practical application of emerging technologies including IoT, AI, and data science to solve real-world problems.",
+      "icon": "bi-cpu",
+      "order": 3
+    }
+  },
+  {
+    "model": "icas.researcharea",
+    "pk": 4,
+    "fields": {
+      "title": "Social Development",
+      "description": "Community-based research addressing poverty, education, gender equity, and rural development across Nepal.",
+      "icon": "bi-people",
+      "order": 4
+    }
+  },
+  {
+    "model": "icas.researcharea",
+    "pk": 5,
+    "fields": {
+      "title": "Civil & Infrastructure",
+      "description": "Structural engineering, disaster resilience, earthquake engineering, and sustainable construction research.",
+      "icon": "bi-building",
+      "order": 5
+    }
+  },
+  {
+    "model": "icas.researcharea",
+    "pk": 6,
+    "fields": {
+      "title": "Health Sciences",
+      "description": "Public health, epidemiology, and health technology research aimed at improving community healthcare outcomes.",
+      "icon": "bi-heart-pulse",
+      "order": 6
+    }
+  },
+  {
+    "model": "icas.teammember",
+    "pk": 1,
+    "fields": {
+      "name": "Dr. Ram Prasad Sharma",
+      "role": "director",
+      "designation": "Executive Director & Chief Researcher",
+      "bio": "PhD in Applied Sciences with over 15 years of experience in research and academic leadership. Specialises in environmental sustainability and climate change.",
+      "photo": "",
+      "email": "director@icas.edu.np",
+      "linkedin": "",
+      "google_scholar": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "icas.teammember",
+    "pk": 2,
+    "fields": {
+      "name": "Dr. Sita Devi Poudel",
+      "role": "faculty",
+      "designation": "Senior Research Fellow – Renewable Energy",
+      "bio": "Expert in solar and hydropower technologies with published research in international journals.",
+      "photo": "",
+      "email": "sita.poudel@icas.edu.np",
+      "linkedin": "",
+      "google_scholar": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "icas.teammember",
+    "pk": 3,
+    "fields": {
+      "name": "Er. Bikash Thapa",
+      "role": "faculty",
+      "designation": "Research Associate – Applied Technology",
+      "bio": "Specialises in IoT applications and data-driven solutions for engineering problems in Nepal.",
+      "photo": "",
+      "email": "bikash.thapa@icas.edu.np",
+      "linkedin": "",
+      "google_scholar": "",
+      "order": 3
+    }
+  },
+  {
+    "model": "icas.teammember",
+    "pk": 4,
+    "fields": {
+      "name": "Ms. Anita Karki",
+      "role": "researcher",
+      "designation": "Researcher – Social Development",
+      "bio": "Focuses on community-based participatory research and gender equity programmes.",
+      "photo": "",
+      "email": "anita.karki@icas.edu.np",
+      "linkedin": "",
+      "google_scholar": "",
+      "order": 4
+    }
+  },
+  {
+    "model": "icas.publication",
+    "pk": 1,
+    "fields": {
+      "title": "Assessment of Solar Energy Potential in Bagmati Province, Nepal",
+      "authors": "Poudel S.D., Sharma R.P., Thapa B.",
+      "pub_type": "journal",
+      "journal_or_venue": "Renewable and Sustainable Energy Reviews",
+      "year": 2023,
+      "doi": "10.1016/j.rser.2023.example",
+      "abstract": "This study assesses the solar energy potential across different districts of Bagmati Province using GIS-based analysis and ground-truth measurements.",
+      "pdf_link": ""
+    }
+  },
+  {
+    "model": "icas.publication",
+    "pk": 2,
+    "fields": {
+      "title": "Climate Change Impacts on Himalayan Watersheds: A Case Study",
+      "authors": "Sharma R.P., Karki A., Shrestha K.",
+      "pub_type": "journal",
+      "journal_or_venue": "Journal of Hydrology: Regional Studies",
+      "year": 2023,
+      "doi": "10.1016/j.ejrh.2023.example",
+      "abstract": "Analysis of long-term precipitation and temperature trends and their effects on high-altitude water resources in central Nepal.",
+      "pdf_link": ""
+    }
+  },
+  {
+    "model": "icas.publication",
+    "pk": 3,
+    "fields": {
+      "title": "IoT-based Structural Health Monitoring for Earthquake-Prone Buildings",
+      "authors": "Thapa B., Poudel S.D.",
+      "pub_type": "conference",
+      "journal_or_venue": "International Conference on Contemporary Issues of Climate Change (ICICС 2023)",
+      "year": 2023,
+      "doi": "",
+      "abstract": "Prototype IoT sensor network for real-time monitoring of structural integrity in reinforced concrete buildings.",
+      "pdf_link": ""
+    }
+  },
+  {
+    "model": "icas.publication",
+    "pk": 4,
+    "fields": {
+      "title": "Gender Equity in STEM Education: Challenges and Opportunities in Nepal",
+      "authors": "Karki A., Sharma R.P.",
+      "pub_type": "journal",
+      "journal_or_venue": "International Journal of Educational Development",
+      "year": 2022,
+      "doi": "",
+      "abstract": "A mixed-methods study exploring barriers and enablers of women's participation in science and technology programmes in Nepalese universities.",
+      "pdf_link": ""
+    }
+  },
+  {
+    "model": "icas.project",
+    "pk": 1,
+    "fields": {
+      "title": "Solar Microgrids for Rural Electrification in Remote Nepal",
+      "description": "This project aims to design, deploy, and evaluate solar microgrid systems in 10 remote villages of Dolpa and Humla districts where grid connectivity is infeasible. The initiative combines technical engineering work with community engagement to ensure long-term sustainability.",
+      "status": "ongoing",
+      "start_date": "2023-01-15",
+      "end_date": null,
+      "funding_agency": "Alternative Energy Promotion Centre (AEPC)",
+      "budget": "NPR 45,00,000",
+      "principal_investigator": 2,
+      "image": ""
+    }
+  },
+  {
+    "model": "icas.project",
+    "pk": 2,
+    "fields": {
+      "title": "Urban Air Quality Monitoring – Kathmandu Valley",
+      "description": "Deployment of a network of low-cost air quality sensors across Kathmandu Valley to generate real-time pollution data, identify hotspots, and inform policy-level interventions.",
+      "status": "ongoing",
+      "start_date": "2022-07-01",
+      "end_date": null,
+      "funding_agency": "International Development Research Centre (IDRC)",
+      "budget": "NPR 28,00,000",
+      "principal_investigator": 1,
+      "image": ""
+    }
+  },
+  {
+    "model": "icas.project",
+    "pk": 3,
+    "fields": {
+      "title": "Women in STEM: Scholarship and Mentorship Programme",
+      "description": "A two-year initiative providing scholarships, mentorship, and career support to female undergraduate students in engineering and applied sciences across Nepal.",
+      "status": "ongoing",
+      "start_date": "2023-04-01",
+      "end_date": null,
+      "funding_agency": "US Embassy Kathmandu",
+      "budget": "NPR 12,00,000",
+      "principal_investigator": 4,
+      "image": ""
+    }
+  },
+  {
+    "model": "icas.event",
+    "pk": 1,
+    "fields": {
+      "title": "International Conference on Contemporary Issues of Climate Change",
+      "event_type": "conference",
+      "description": "A two-day international conference bringing together researchers, policymakers, and practitioners to discuss climate change impacts, adaptation strategies, and mitigation measures relevant to South Asia.",
+      "date": "2025-06-15",
+      "time": "09:00:00",
+      "venue": "Hotel Himalaya, Kupondole, Lalitpur",
+      "image": "",
+      "registration_link": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "icas.event",
+    "pk": 2,
+    "fields": {
+      "title": "Workshop on Research Methodology for Postgraduates",
+      "event_type": "workshop",
+      "description": "A hands-on two-day workshop covering quantitative and qualitative research methods, statistical analysis using SPSS/R, and academic writing skills for graduate students.",
+      "date": "2025-04-20",
+      "time": "10:00:00",
+      "venue": "ICAS Training Hall, Chakupat, Lalitpur",
+      "image": "",
+      "registration_link": "",
+      "is_featured": false
+    }
+  },
+  {
+    "model": "icas.event",
+    "pk": 3,
+    "fields": {
+      "title": "Webinar: AI Applications in Environmental Monitoring",
+      "event_type": "webinar",
+      "description": "An online session exploring how artificial intelligence and machine learning are transforming environmental monitoring and data analysis in developing countries.",
+      "date": "2025-03-28",
+      "time": "14:00:00",
+      "venue": "Online (Zoom)",
+      "image": "",
+      "registration_link": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "icas.news",
+    "pk": 1,
+    "fields": {
+      "date_posted": "2024-01-01",
+      "title": "ICAS Receives IDRC Grant for Urban Air Quality Research",
+      "content": "We are pleased to announce that ICAS has been awarded a research grant of NPR 28,00,000 from the International Development Research Centre (IDRC) to conduct a comprehensive urban air quality monitoring study across the Kathmandu Valley. The two-year project will deploy a network of sensors and generate actionable data for policymakers.",
+      "image": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "icas.news",
+    "pk": 2,
+    "fields": {
+      "date_posted": "2024-01-01",
+      "title": "ICAS Hosts Successful International Climate Conference",
+      "content": "The International Conference on Contemporary Issues of Climate Change, organised by ICAS, was attended by over 150 researchers and professionals from 12 countries. The event featured 35 paper presentations and a panel discussion on climate policy in the Hindu Kush Himalayan region.",
+      "image": "",
+      "is_featured": true
+    }
+  },
+  {
+    "model": "icas.news",
+    "pk": 3,
+    "fields": {
+      "date_posted": "2024-01-01",
+      "title": "ICAS Launches Women in STEM Scholarship Programme",
+      "content": "With support from the US Embassy Kathmandu, ICAS has launched a scholarship and mentorship programme targeting female undergraduate students in engineering and applied sciences. Applications are now open for the 2024-25 cohort.",
+      "image": "",
+      "is_featured": false
+    }
+  }
+]

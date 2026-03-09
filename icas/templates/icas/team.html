@@ -15,7 +15,36 @@
   </div>
 </div>
 
-
+<!-- Presidents -->
+{% if presidents %}
+<section style="padding:70px 0;">
+  <div class="container">
+    <h2 class="section-title">President</h2>
+    <div class="section-divider"></div>
+    <div class="row g-4 justify-content-center">
+      {% for member in presidents %}
+      <div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card card-icas text-center p-4 team-card h-100">
+          <div class="card-top-bar" style="background:linear-gradient(90deg,#cc2126,#e05458);"></div>
+          <div class="photo-wrap" style="margin-top:1.2rem;">
+            {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.name }}">{% else %}<span class="initials">{{ member.name|first }}</span>{% endif %}
+          </div>
+          <h6 style="color:#0d1f3c;margin-bottom:.2rem;">{{ member.name }}</h6>
+          <div style="font-size:.82rem;color:#0b7a75;margin-bottom:.5rem;">{{ member.designation }}</div>
+          <span class="badge" style="background:#fff3cd;color:#856404;font-size:.7rem;">{{ member.get_role_display }}</span>
+          {% if member.bio %}<p style="font-size:.83rem;color:#6c757d;margin-top:.8rem;">{{ member.bio|truncatechars:120 }}</p>{% endif %}
+          <div class="d-flex justify-content-center gap-2 mt-3">
+            {% if member.email %}<a href="mailto:{{ member.email }}" style="color:#6c757d;" title="Email"><i class="bi bi-envelope"></i></a>{% endif %}
+            {% if member.linkedin %}<a href="{{ member.linkedin }}" target="_blank" style="color:#0077b5;" title="LinkedIn"><i class="bi bi-linkedin"></i></a>{% endif %}
+            {% if member.google_scholar %}<a href="{{ member.google_scholar }}" target="_blank" style="color:#4285f4;" title="Google Scholar"><i class="bi bi-google"></i></a>{% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
 
 <!-- Directors -->
 {% if directors %}

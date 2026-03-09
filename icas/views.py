@@ -86,12 +86,14 @@ def project_detail(request, pk):
 
 
 def team(request):
+    presidents = TeamMember.objects.filter(role='president')
     directors = TeamMember.objects.filter(role='director')
     faculty = TeamMember.objects.filter(role='faculty')
     researchers = TeamMember.objects.filter(role='researcher')
     students = TeamMember.objects.filter(role='student')
     context = {
         'page_title': 'Our Team',
+        'presidents': presidents,
         'directors': directors,
         'faculty': faculty,
         'researchers': researchers,

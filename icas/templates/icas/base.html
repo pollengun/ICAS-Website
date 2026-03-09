@@ -403,7 +403,7 @@
             <a class="nav-link {% if request.resolver_match.url_name == 'about' %}active{% endif %}" href="{% url 'about' %}">About</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'research,project_detail' %}active{% endif %}"
+            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'research' or request.resolver_match.url_name == 'project_detail' %}active{% endif %}"
                href="#" data-bs-toggle="dropdown">Research</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'research' %}">Research Areas</a></li>
@@ -412,7 +412,7 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name in 'team,contact_personnel' %}active{% endif %}"
+            <a class="nav-link dropdown-toggle {% if request.resolver_match.url_name == 'team' or request.resolver_match.url_name == 'contact_personnel' %}active{% endif %}"
                href="#" data-bs-toggle="dropdown">Team</a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{% url 'team' %}">Our Team</a></li>

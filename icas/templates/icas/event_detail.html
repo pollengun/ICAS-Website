@@ -1,0 +1,76 @@
+{% extends 'icas/base.html' %}
+{% load static %}
+
+{% block title %}{{ event.title }} – ICAS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ event.title }}</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'events' %}">Events</a></li>
+        <li class="breadcrumb-item active">{{ event.title|truncatechars:40 }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section style="padding:70px 0;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+
+        <!-- Meta badges -->
+        <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+          <span style="background:#f4f7fb;border-radius:8px;padding:.5rem 1rem;font-size:.88rem;">
+            <i class="bi bi-calendar3 me-2" style="color:#cc2126;"></i>{{ event.date|date:"F j, Y" }}
+          </span>
+          {% if event.time %}
+          <span style="background:#f4f7fb;border-radius:8px;padding:.5rem 1rem;font-size:.88rem;">
+            <i class="bi bi-clock me-2" style="color:#cc2126;"></i>{{ event.time }}
+          </span>
+          {% endif %}
+          {% if event.venue %}
+          <span style="background:#f4f7fb;border-radius:8px;padding:.5rem 1rem;font-size:.88rem;">
+            <i class="bi bi-geo-alt me-2" style="color:#cc2126;"></i>{{ event.venue }}
+          </span>
+          {% endif %}
+          <span class="badge text-uppercase" style="background:#cc2126;color:#fff;letter-spacing:.05em;">
+            {{ event.get_event_type_display }}
+          </span>
+        </div>
+
+        <!-- Image -->
+        {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.title }}"
+             style="width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:2rem;">
+        {% endif %}
+
+        <!-- Description -->
+        <div style="font-size:1.05rem;line-height:1.85;color:#2c3e50;">
+          {{ event.description|linebreaks }}
+        </div>
+
+        <!-- Registration -->
+        {% if event.registration_link %}
+        <div class="mt-4">
+          <a href="{{ event.registration_link }}" target="_blank" class="btn-icas-primary btn">
+            <i class="bi bi-pencil-square me-2"></i>Register Now
+          </a>
+        </div>
+        {% endif %}
+
+        <!-- Back button -->
+        <div class="mt-4">
+          <a href="{% url 'events' %}" class="btn-icas-outline btn">
+            <i class="bi bi-arrow-left me-2"></i>Back to Events
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

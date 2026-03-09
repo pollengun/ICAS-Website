@@ -29,11 +29,16 @@
             <i class="bi bi-newspaper" style="font-size:3rem;color:rgba(255,255,255,.3);"></i>
           </div>
           {% endif %}
-          <div class="card-body p-4">
+          <div class="card-body p-4 d-flex flex-column">
             {% if item.is_featured %}<span class="badge mb-2" style="background:#fff3cd;color:#856404;">Featured</span>{% endif %}
             <div style="font-size:.8rem;color:#6c757d;margin-bottom:.5rem;"><i class="bi bi-calendar3 me-1"></i>{{ item.date_posted|date:"F j, Y" }}</div>
             <h5 style="color:#0d1f3c;font-size:1rem;">{{ item.title }}</h5>
             <p style="font-size:.88rem;color:#6c757d;">{{ item.content|truncatechars:180 }}</p>
+            <div class="mt-auto pt-2">
+              <a href="{% url 'news_detail' item.pk %}" class="btn-icas-primary btn btn-sm">
+                Read More <i class="bi bi-arrow-right ms-1"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>

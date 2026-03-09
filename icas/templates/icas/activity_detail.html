@@ -1,0 +1,52 @@
+{% extends 'icas/base.html' %}
+{% load static %}
+
+{% block title %}{{ activity.title }} – ICAS{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>{{ activity.title }}</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'activities' %}">Activities</a></li>
+        <li class="breadcrumb-item active">{{ activity.title|truncatechars:40 }}</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section style="padding:70px 0;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+
+        <!-- Meta -->
+        <div class="mb-4" style="color:#6c757d;font-size:.88rem;">
+          <i class="bi bi-calendar3 me-1"></i>{{ activity.date|date:"F j, Y" }}
+        </div>
+
+        <!-- Image -->
+        {% if activity.image %}
+        <img src="{{ activity.image.url }}" alt="{{ activity.title }}"
+             style="width:100%;max-height:420px;object-fit:cover;border-radius:12px;margin-bottom:2rem;">
+        {% endif %}
+
+        <!-- Description -->
+        <div style="font-size:1.05rem;line-height:1.85;color:#2c3e50;">
+          {{ activity.description|linebreaks }}
+        </div>
+
+        <!-- Back button -->
+        <div class="mt-5">
+          <a href="{% url 'activities' %}" class="btn-icas-outline btn">
+            <i class="bi bi-arrow-left me-2"></i>Back to Activities
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -134,6 +134,11 @@ def events(request):
     }
     return render(request, 'icas/events.html', context)
 
+def event_detail(request, pk):
+    event = get_object_or_404(Event, pk=pk)
+    context = {'event': event}
+    return render(request, 'icas/event_detail.html', context)
+
 
 def news_list(request):
     all_news = News.objects.all()
@@ -143,6 +148,11 @@ def news_list(request):
     }
     return render(request, 'icas/news.html', context)
 
+def news_detail(request, pk):
+    news = get_object_or_404(News, pk=pk)
+    context = {'news': news}
+    return render(request, 'icas/news_detail.html', context)
+
 def activities(request):
     all_activities = Activity.objects.all()
     context = {
@@ -150,6 +160,11 @@ def activities(request):
         'activities': all_activities,
     }
     return render(request, 'icas/activities.html', context)
+
+def activity_detail(request, pk):
+    activity = get_object_or_404(Activity, pk=pk)
+    context = {'activity': activity}
+    return render(request, 'icas/activity_detail.html', context)
 
 def contact_personnel(request):
     personnel = TeamMember.objects.filter(show_on_contact_page=True)

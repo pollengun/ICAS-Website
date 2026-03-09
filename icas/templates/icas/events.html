@@ -43,11 +43,12 @@
             <div style="font-size:.83rem;color:#6c757d;"><i class="bi bi-geo-alt me-1"></i>{{ event.venue }}</div>
             {% if event.time %}<div style="font-size:.83rem;color:#6c757d;"><i class="bi bi-clock me-1"></i>{{ event.time|time:"h:i A" }}</div>{% endif %}
           </div>
-          {% if event.registration_link %}
-          <div class="card-footer bg-transparent border-0 px-4 pb-4">
-            <a href="{{ event.registration_link }}" target="_blank" class="btn-icas-primary btn btn-sm w-100">Register Now <i class="bi bi-arrow-right ms-1"></i></a>
+          <div class="card-footer bg-transparent border-0 px-4 pb-4 d-flex gap-2">
+            <a href="{% url 'event_detail' event.pk %}" class="btn-icas-outline btn btn-sm">View Details</a>
+            {% if event.registration_link %}
+            <a href="{{ event.registration_link }}" target="_blank" class="btn-icas-primary btn btn-sm">Register <i class="bi bi-arrow-right ms-1"></i></a>
+            {% endif %}
           </div>
-          {% endif %}
         </div>
       </div>
       {% empty %}
@@ -78,6 +79,7 @@
             <span class="badge bg-secondary mb-1" style="font-size:.7rem;">{{ event.get_event_type_display }}</span>
             <h6 style="color:#4a5568;margin-bottom:.2rem;font-size:.92rem;">{{ event.title }}</h6>
             <div style="font-size:.81rem;color:#6c757d;"><i class="bi bi-geo-alt me-1"></i>{{ event.venue }}</div>
+            <a href="{% url 'event_detail' event.pk %}" style="font-size:.81rem;color:#cc2126;">View Details <i class="bi bi-arrow-right"></i></a>
           </div>
         </div>
       </div>

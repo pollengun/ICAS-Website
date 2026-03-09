@@ -50,8 +50,11 @@
           {{ activity.title }}
         </h4>
         <p style="color:#4a5568;line-height:1.9;text-align:justify;font-size:.97rem;">
-          {{ activity.description }}
+          {{ activity.description|truncatechars:400 }}
         </p>
+        <a href="{% url 'activity_detail' activity.pk %}" class="btn-icas-primary btn btn-sm mt-2">
+          Read More <i class="bi bi-arrow-right ms-1"></i>
+        </a>
       </div>
 
     </div>

@@ -1,0 +1,167 @@
+{% extends 'icas/base.html' %}
+
+{% block title %}Dashboard – ICAS Staff{% endblock %}
+
+{% block content %}
+
+<div class="page-header">
+  <div class="container">
+    <h1>Staff Dashboard</h1>
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<section style="padding:50px 0;background:#f4f7fb;min-height:70vh;">
+  <div class="container">
+
+    <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+      <div>
+        <h4 style="color:#0d1f3c;margin-bottom:.2rem;">Welcome, {{ request.user.get_full_name|default:request.user.username }}</h4>
+        <p style="color:#6c757d;margin:0;font-size:.9rem;">
+          <i class="bi bi-circle-fill me-1" style="color:#28a745;font-size:.5rem;"></i>
+          Logged in as <strong>{{ request.user.username }}</strong>
+          {% if request.user.is_superuser %}<span class="badge ms-1" style="background:#cc2126;color:#fff;font-size:.7rem;">Super Admin</span>
+          {% elif request.user.is_staff %}<span class="badge ms-1" style="background:#1a3a6b;color:#fff;font-size:.7rem;">Staff</span>{% endif %}
+        </p>
+      </div>
+      <a href="{% url 'logout' %}" class="btn-icas-outline btn btn-sm">
+        <i class="bi bi-box-arrow-right me-1"></i>Logout
+      </a>
+    </div>
+
+    <!-- Stats -->
+    <div class="row g-3 mb-4">
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid #cc2126;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#cc2126;">{{ total_publications }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">Publications</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid #1a3a6b;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#1a3a6b;">{{ total_projects }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">Projects</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid #0b7a75;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#0b7a75;">{{ total_team }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">Team Members</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid #6f42c1;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#6f42c1;">{{ total_events }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">Events</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid #fd7e14;">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:#fd7e14;">{{ total_news }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">News</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4 col-lg-2">
+        <div style="background:#fff;border-radius:12px;padding:1.2rem;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.06);border-top:3px solid {% if unread_messages > 0 %}#cc2126{% else %}#6c757d{% endif %};">
+          <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:{% if unread_messages > 0 %}#cc2126{% else %}#6c757d{% endif %};">{{ unread_messages }}</div>
+          <div style="font-size:.78rem;color:#6c757d;">Unread Messages</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Quick Actions -->
+      <div class="col-lg-4">
+        <div style="background:#fff;border-radius:12px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+          <h6 style="color:#0d1f3c;margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:2px solid #f4f7fb;">
+            <i class="bi bi-lightning-charge me-2" style="color:#cc2126;"></i>Quick Actions
+          </h6>
+          <div class="d-flex flex-column gap-2">
+            <a href="/admin/icas/news/add/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-newspaper" style="color:#cc2126;"></i> Add News Article
+            </a>
+            <a href="/admin/icas/event/add/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-calendar-plus" style="color:#1a3a6b;"></i> Add Event
+            </a>
+            <a href="/admin/icas/activity/add/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-journal-plus" style="color:#0b7a75;"></i> Add Activity
+            </a>
+            <a href="/admin/icas/publication/add/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-book" style="color:#6f42c1;"></i> Add Publication
+            </a>
+            <a href="/admin/icas/teammember/add/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-person-plus" style="color:#fd7e14;"></i> Add Team Member
+            </a>
+            <a href="/admin/icas/contactmessage/" style="display:flex;align-items:center;gap:.75rem;padding:.65rem 1rem;background:var(--bg-section-alt);border-radius:8px;text-decoration:none;color:var(--text-primary);font-size:.9rem;" onmouseover="this.style.background='var(--bg-body)'" onmouseout="this.style.background='var(--bg-section-alt)'">
+              <i class="bi bi-envelope" style="color:{% if unread_messages > 0 %}#cc2126{% else %}#6c757d{% endif %};"></i>
+              View Messages
+              {% if unread_messages > 0 %}<span class="badge ms-auto" style="background:#cc2126;color:#fff;font-size:.7rem;">{{ unread_messages }} new</span>{% endif %}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Messages + Upcoming Events -->
+      <div class="col-lg-8">
+        <div style="background:#fff;border-radius:12px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);margin-bottom:1.5rem;">
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-2" style="border-bottom:2px solid #f4f7fb;">
+            <h6 style="color:#0d1f3c;margin:0;"><i class="bi bi-envelope me-2" style="color:#cc2126;"></i>Recent Messages</h6>
+            <a href="/admin/icas/contactmessage/" style="font-size:.8rem;color:#cc2126;text-decoration:none;">View all</a>
+          </div>
+          {% for msg in recent_messages %}
+          <div style="padding:.75rem 0;border-bottom:1px solid #f4f7fb;">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <div style="font-weight:600;font-size:.88rem;color:#0d1f3c;">
+                  {{ msg.name }}
+                  {% if not msg.is_read %}<span class="badge ms-1" style="background:#cc2126;color:#fff;font-size:.65rem;">New</span>{% endif %}
+                </div>
+                <div style="font-size:.82rem;color:#6c757d;">{{ msg.subject }}</div>
+              </div>
+              <div style="font-size:.75rem;color:#adb5bd;white-space:nowrap;">{{ msg.submitted_at|date:"M d, Y" }}</div>
+            </div>
+          </div>
+          {% empty %}
+          <p style="color:#6c757d;font-size:.88rem;text-align:center;padding:1rem 0;margin:0;">No messages yet.</p>
+          {% endfor %}
+        </div>
+
+        <div style="background:#fff;border-radius:12px;padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.06);">
+          <div class="d-flex justify-content-between align-items-center mb-3 pb-2" style="border-bottom:2px solid #f4f7fb;">
+            <h6 style="color:#0d1f3c;margin:0;"><i class="bi bi-calendar-event me-2" style="color:#1a3a6b;"></i>Upcoming Events</h6>
+            <a href="/admin/icas/event/" style="font-size:.8rem;color:#cc2126;text-decoration:none;">Manage</a>
+          </div>
+          {% for event in upcoming_events %}
+          <div style="display:flex;gap:1rem;align-items:center;padding:.65rem 0;border-bottom:1px solid #f4f7fb;">
+            <div style="background:#cc2126;color:#fff;border-radius:8px;padding:.4rem .6rem;text-align:center;min-width:48px;flex-shrink:0;">
+              <div style="font-size:1rem;font-weight:700;line-height:1;">{{ event.date|date:"d" }}</div>
+              <div style="font-size:.6rem;text-transform:uppercase;">{{ event.date|date:"M" }}</div>
+            </div>
+            <div>
+              <div style="font-size:.88rem;font-weight:600;color:#0d1f3c;">{{ event.title }}</div>
+              <div style="font-size:.78rem;color:#6c757d;">{{ event.get_event_type_display }} · {{ event.venue }}</div>
+            </div>
+          </div>
+          {% empty %}
+          <p style="color:#6c757d;font-size:.88rem;text-align:center;padding:1rem 0;margin:0;">No upcoming events.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="/admin/" style="font-size:.85rem;color:#6c757d;text-decoration:none;">
+        <i class="bi bi-gear me-1"></i>Go to full Admin Panel
+      </a>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

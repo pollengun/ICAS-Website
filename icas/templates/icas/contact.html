@@ -79,7 +79,7 @@
       <div class="col-lg-8">
         <div style="background:#f4f7fb;border-radius:16px;padding:2.5rem;">
           <h3 style="color:#0d1f3c;margin-bottom:1.5rem;">Send Us a Message</h3>
-          <form method="post" novalidate>
+          <form method="post" action="{% url 'contact' %}" novalidate>
             {% csrf_token %}
             <div class="row g-3">
               <div class="col-md-6">

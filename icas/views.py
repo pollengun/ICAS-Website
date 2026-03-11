@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from .models import (
     ResearchArea, TeamMember, Publication, Project,
     Event, News, ContactMessage, Partner, Activity
@@ -195,3 +195,46 @@ def contact(request):
         'form': form,
     }
     return render(request, 'icas/contact.html', context)
+
+# ── Authentication views ──
+
+def staff_login(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_staff or user.is_superuser:
+                login(request, user)
+                return redirect(request.GET.get('next', 'dashboard'))
+            else:
+                messages.error(request, 'You do not have staff access.')
+        else:
+            messages.error(request, 'Invalid username or password.')
+    return render(request, 'icas/login.html')
+
+
+def staff_logout(request):
+    logout(request)
+    messages.success(request, 'You have been logged out successfully.')
+    return redirect('home')
+
+
+@login_required(login_url='login')
+def dashboard(request):
+    context = {
+        'total_publications': Publication.objects.count(),
+        'total_projects': Project.objects.count(),
+        'total_team': TeamMember.objects.count(),
+        'total_events': Event.objects.count(),
+        'total_news': News.objects.count(),
+        'total_activities': Activity.objects.count(),
+        'unread_messages': ContactMessage.objects.filter(is_read=False).count(),
+        'recent_messages': ContactMessage.objects.order_by('-submitted_at')[:5],
+        'recent_news': News.objects.order_by('-date_posted')[:5],
+        'upcoming_events': Event.objects.filter(date__gte=datetime.date.today()).order_by('date')[:5],
+    }
+    return render(request, 'icas/dashboard.html', context)
+

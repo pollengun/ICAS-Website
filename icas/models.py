@@ -20,10 +20,9 @@ class TeamMember(models.Model):
         ('director', 'Director'),
         ('faculty', 'Faculty Researcher'),
         ('researcher', 'Researcher'),
-        ('student', 'Graduate Student'),
     ]
     name = models.CharField(max_length=200)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, blank=True)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES)
     designation = models.CharField(max_length=200, blank=True)
     department = models.CharField(max_length=200, blank=True)
     qualification = models.CharField(max_length=200, blank=True)

@@ -16,4 +16,7 @@ urlpatterns = [
     path('activities/<int:pk>/', views.activity_detail, name='activity_detail'),
     path('contact-personnel/', views.contact_personnel, name='contact_personnel'),
     path('contact/', views.contact, name='contact'),
+    path('login/', views.staff_login, name='login'),
+    path('logout/', views.staff_logout, name='logout'),
+    path('dashboard/', views.dashboard, name='dashboard'),
 ]

@@ -572,11 +572,28 @@
             </a>
           </li>
         </ul>
-        <!-- Dark mode toggle -->
-        <button class="dark-toggle ms-auto" id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">
-          <i class="bi bi-moon-fill" id="darkIcon"></i>
-          <span id="darkLabel">Dark</span>
-        </button>
+        <!-- Auth + Dark mode -->
+          <div class="d-flex align-items-center ms-auto gap-2">
+            {% if user.is_authenticated %}
+              <a href="{% url 'dashboard' %}"
+                style="color:rgba(255,255,255,.85);font-size:.82rem;text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:.3rem .75rem;white-space:nowrap;">
+                <i class="bi bi-speedometer2 me-1"></i>Dashboard
+              </a>
+              <a href="{% url 'logout' %}"
+                style="color:rgba(255,255,255,.85);font-size:.82rem;text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:.3rem .75rem;white-space:nowrap;">
+                <i class="bi bi-box-arrow-right me-1"></i>Logout
+              </a>
+            {% else %}
+              <a href="{% url 'login' %}"
+                style="color:rgba(255,255,255,.85);font-size:.82rem;text-decoration:none;border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:.3rem .75rem;white-space:nowrap;">
+                <i class="bi bi-person me-1"></i>Staff Login
+              </a>
+            {% endif %}
+            <button class="dark-toggle" id="darkToggle" onclick="toggleDark()" title="Toggle dark mode">
+              <i class="bi bi-moon-fill" id="darkIcon"></i>
+              <span id="darkLabel">Dark</span>
+            </button>
+          </div>
       </div>
 
     </div>

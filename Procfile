@@ -1,1 +1,1 @@
-web: gunicorn icas_website.wsgi --log-file -
+web: python manage.py migrate && gunicorn icas_website.wsgi --log-file -

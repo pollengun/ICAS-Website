@@ -1,9 +1,0 @@
-{
-  "build": {
-    "builder": "NIXPACKS"
-  },
-  "deploy": {
-    "startCommand": "python manage.py migrate && gunicorn icas_website.wsgi --log-file -",
-    "restartPolicyType": "ON_FAILURE"
-  }
-}

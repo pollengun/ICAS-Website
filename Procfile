@@ -1,1 +1,1 @@
-web: gunicorn icas_website.wsgi --log-file -
+web: gunicorn icas_website.wsgi:application --bind 0.0.0.0:$PORT --log-file -

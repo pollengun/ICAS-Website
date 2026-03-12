@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py shell -c "from django.contrib.auth import get_user_model; U=get_user_model(); U.objects.filter(username='icas').exists() or U.objects.create_superuser('icas', 'icas@uesc.edu.np', 'icas@2021')" && gunicorn icas_website.wsgi --log-file -
+web: python manage.py collectstatic --noinput && python manage.py migrate && gunicorn icas_website.wsgi --log-file -

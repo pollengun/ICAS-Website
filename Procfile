@@ -1,1 +1,1 @@
-web: python manage.py collectstatic --noinput && python manage.py migrate && gunicorn icas_website.wsgi --log-file -
+web: gunicorn icas_website.wsgi --log-file -

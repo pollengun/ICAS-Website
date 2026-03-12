@@ -224,17 +224,22 @@ def staff_logout(request):
 
 @login_required(login_url='login')
 def dashboard(request):
-    context = {
-        'total_publications': Publication.objects.count(),
-        'total_projects': Project.objects.count(),
-        'total_team': TeamMember.objects.count(),
-        'total_events': Event.objects.count(),
-        'total_news': News.objects.count(),
-        'total_activities': Activity.objects.count(),
-        'unread_messages': ContactMessage.objects.filter(is_read=False).count(),
-        'recent_messages': ContactMessage.objects.order_by('-submitted_at')[:5],
-        'recent_news': News.objects.order_by('-date_posted')[:5],
-        'upcoming_events': Event.objects.filter(date__gte=datetime.date.today()).order_by('date')[:5],
-    }
-    return render(request, 'icas/dashboard.html', context)
+    try:
+
+        context = {
+            'total_publications': Publication.objects.count(),
+            'total_projects': Project.objects.count(),
+            'total_team': TeamMember.objects.count(),
+            'total_events': Event.objects.count(),
+            'total_news': News.objects.count(),
+            'total_activities': Activity.objects.count(),
+            'unread_messages': ContactMessage.objects.filter(is_read=False).count(),
+            'recent_messages': ContactMessage.objects.order_by('-submitted_at')[:5],
+            'recent_news': News.objects.order_by('-date_posted')[:5],
+            'upcoming_events': Event.objects.filter(date__gte=datetime.date.today()).order_by('date')[:5],
+        }
+        return render(request, 'icas/dashboard.html', context)
+    except Exception as e:
+        from django.http import HttpResponse
+        return HttpResponse(f"Dashboard error: {str(e)}", status=500)
 

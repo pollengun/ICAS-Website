@@ -44,6 +44,36 @@
             {% if project.funding_agency %}<li class="mb-3"><i class="bi bi-bank me-2 text-icas-blue"></i><strong>Funded by:</strong> {{ project.funding_agency }}</li>{% endif %}
             {% if project.budget %}<li class="mb-3"><i class="bi bi-currency-dollar me-2 text-icas-blue"></i><strong>Budget:</strong> {{ project.budget }}</li>{% endif %}
             {% if project.principal_investigator %}<li class="mb-3"><i class="bi bi-person me-2 text-icas-blue"></i><strong>PI:</strong> {{ project.principal_investigator.name }}</li>{% endif %}
+            {% if project.research_areas.all %}
+            <li class="mb-3">
+              <i class="bi bi-diagram-3 me-2 text-icas-blue"></i><strong>Research Areas:</strong>
+              <div class="mt-2 d-flex flex-wrap gap-2">
+                {% for area in project.research_areas.all %}
+                <span class="badge text-bg-light border">{{ area.title }}</span>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
+            {% if project.team_members.all %}
+            <li class="mb-3">
+              <i class="bi bi-people me-2 text-icas-blue"></i><strong>Team Members:</strong>
+              <div class="mt-2 d-flex flex-wrap gap-2">
+                {% for member in project.team_members.all %}
+                <span class="badge text-bg-light border">{{ member.name }}</span>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
+            {% if project.partners.all %}
+            <li class="mb-3">
+              <i class="bi bi-building me-2 text-icas-blue"></i><strong>Partners:</strong>
+              <div class="mt-2 d-flex flex-wrap gap-2">
+                {% for partner in project.partners.all %}
+                <span class="badge text-bg-light border">{{ partner.name }}</span>
+                {% endfor %}
+              </div>
+            </li>
+            {% endif %}
           </ul>
           <a href="{% url 'contact' %}" class="btn-icas-primary btn w-100 mt-2">
             <i class="bi bi-envelope me-2"></i>Inquire About This Project
@@ -51,6 +81,65 @@
         </div>
       </div>
     </div>
+
+    {% if related_publications or related_events or related_news or related_activities %}
+    <div class="mt-5">
+      <h4 style="color:#0d1f3c;margin-bottom:1rem;">Related Entities</h4>
+      <div class="row g-4">
+        {% if related_publications %}
+        <div class="col-md-6 col-lg-3">
+          <div style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;padding:1rem;height:100%;">
+            <h6 style="color:#0d1f3c;">Publications</h6>
+            <ul class="mb-0 ps-3" style="font-size:.9rem;">
+              {% for publication in related_publications %}
+              <li>{{ publication.title|truncatechars:70 }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if related_events %}
+        <div class="col-md-6 col-lg-3">
+          <div style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;padding:1rem;height:100%;">
+            <h6 style="color:#0d1f3c;">Events</h6>
+            <ul class="mb-0 ps-3" style="font-size:.9rem;">
+              {% for event in related_events %}
+              <li><a href="{% url 'event_detail' event.pk %}">{{ event.title|truncatechars:55 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if related_news %}
+        <div class="col-md-6 col-lg-3">
+          <div style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;padding:1rem;height:100%;">
+            <h6 style="color:#0d1f3c;">News</h6>
+            <ul class="mb-0 ps-3" style="font-size:.9rem;">
+              {% for item in related_news %}
+              <li><a href="{% url 'news_detail' item.pk %}">{{ item.title|truncatechars:55 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+
+        {% if related_activities %}
+        <div class="col-md-6 col-lg-3">
+          <div style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;padding:1rem;height:100%;">
+            <h6 style="color:#0d1f3c;">Activities</h6>
+            <ul class="mb-0 ps-3" style="font-size:.9rem;">
+              {% for activity in related_activities %}
+              <li><a href="{% url 'activity_detail' activity.pk %}">{{ activity.title|truncatechars:55 }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
 
     <div class="mt-4">
       <a href="{% url 'research' %}" class="btn-icas-outline btn"><i class="bi bi-arrow-left me-2"></i>Back to Research</a>

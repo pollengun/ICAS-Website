@@ -34,6 +34,11 @@ class TeamMember(models.Model):
     linkedin = models.URLField(blank=True)
     google_scholar = models.URLField(blank=True)
     show_on_contact_page = models.BooleanField(default=False)
+    research_areas = models.ManyToManyField(
+        ResearchArea,
+        blank=True,
+        related_name='team_members',
+    )
     order = models.IntegerField(default=0)
 
     class Meta:
@@ -58,6 +63,21 @@ class Publication(models.Model):
     doi = models.CharField(max_length=200, blank=True)
     abstract = models.TextField(blank=True)
     pdf_link = models.URLField(blank=True)
+    team_members = models.ManyToManyField(
+        TeamMember,
+        blank=True,
+        related_name='publications',
+    )
+    research_areas = models.ManyToManyField(
+        ResearchArea,
+        blank=True,
+        related_name='publications',
+    )
+    projects = models.ManyToManyField(
+        'Project',
+        blank=True,
+        related_name='publications',
+    )
 
     class Meta:
         ordering = ['-year', 'title']
@@ -81,6 +101,21 @@ class Project(models.Model):
     budget = models.CharField(max_length=100, blank=True)
     principal_investigator = models.ForeignKey(
         TeamMember, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    research_areas = models.ManyToManyField(
+        ResearchArea,
+        blank=True,
+        related_name='projects',
+    )
+    team_members = models.ManyToManyField(
+        TeamMember,
+        blank=True,
+        related_name='projects',
+    )
+    partners = models.ManyToManyField(
+        'Partner',
+        blank=True,
+        related_name='projects',
     )
     image = models.ImageField(upload_to='projects/', blank=True, null=True)
 
@@ -108,6 +143,21 @@ class Event(models.Model):
     image = models.ImageField(upload_to='events/', blank=True, null=True)
     registration_link = models.URLField(blank=True)
     is_featured = models.BooleanField(default=False)
+    organizers = models.ManyToManyField(
+        TeamMember,
+        blank=True,
+        related_name='organized_events',
+    )
+    related_projects = models.ManyToManyField(
+        Project,
+        blank=True,
+        related_name='events',
+    )
+    research_areas = models.ManyToManyField(
+        ResearchArea,
+        blank=True,
+        related_name='events',
+    )
 
     class Meta:
         ordering = ['-date']
@@ -122,6 +172,21 @@ class News(models.Model):
     date_posted = models.DateField(auto_now_add=True)
     image = models.ImageField(upload_to='news/', blank=True, null=True)
     is_featured = models.BooleanField(default=False)
+    related_projects = models.ManyToManyField(
+        Project,
+        blank=True,
+        related_name='news_items',
+    )
+    related_events = models.ManyToManyField(
+        Event,
+        blank=True,
+        related_name='news_items',
+    )
+    related_publications = models.ManyToManyField(
+        Publication,
+        blank=True,
+        related_name='news_items',
+    )
 
     class Meta:
         ordering = ['-date_posted']
@@ -138,6 +203,20 @@ class ContactMessage(models.Model):
     message = models.TextField()
     submitted_at = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+    related_project = models.ForeignKey(
+        Project,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='contact_messages',
+    )
+    assigned_to = models.ForeignKey(
+        TeamMember,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='assigned_messages',
+    )
 
     def __str__(self):
         return f"{self.name} - {self.subject}"
@@ -148,6 +227,25 @@ class Activity(models.Model):
     description = models.TextField()
     image = models.ImageField(upload_to='activities/', blank=True, null=True)
     date = models.DateField()
+    related_project = models.ForeignKey(
+        Project,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='activities',
+    )
+    related_event = models.ForeignKey(
+        Event,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='activities',
+    )
+    participants = models.ManyToManyField(
+        TeamMember,
+        blank=True,
+        related_name='activities',
+    )
     order = models.IntegerField(default=0)
 
     class Meta:

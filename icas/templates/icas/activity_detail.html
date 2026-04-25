@@ -38,6 +38,37 @@
           {{ activity.description|linebreaks }}
         </div>
 
+        {% if activity.related_project or activity.related_event or activity.participants.all %}
+        <div class="mt-4 p-4" style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;">
+          <h5 style="color:#0d1f3c;">Connected Entities</h5>
+
+          {% if activity.related_project %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Project:</strong>
+            <a href="{% url 'project_detail' activity.related_project.pk %}" class="ms-2">{{ activity.related_project.title }}</a>
+          </div>
+          {% endif %}
+
+          {% if activity.related_event %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Event:</strong>
+            <a href="{% url 'event_detail' activity.related_event.pk %}" class="ms-2">{{ activity.related_event.title }}</a>
+          </div>
+          {% endif %}
+
+          {% if activity.participants.all %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Participants:</strong>
+            <div class="d-flex flex-wrap gap-2 mt-2">
+              {% for participant in activity.participants.all %}
+              <span class="badge text-bg-light border">{{ participant.name }}</span>
+              {% endfor %}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
         <!-- Back button -->
         <div class="mt-5">
           <a href="{% url 'activities' %}" class="btn-icas-outline btn">

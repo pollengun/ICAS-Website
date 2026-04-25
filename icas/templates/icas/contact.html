@@ -98,6 +98,11 @@
                 {% if form.subject.errors %}<div class="text-danger mt-1" style="font-size:.82rem;">{{ form.subject.errors.0 }}</div>{% endif %}
               </div>
               <div class="col-12">
+                <label class="form-label fw-semibold" style="font-size:.88rem;">Related Project (Optional)</label>
+                {{ form.related_project }}
+                {% if form.related_project.errors %}<div class="text-danger mt-1" style="font-size:.82rem;">{{ form.related_project.errors.0 }}</div>{% endif %}
+              </div>
+              <div class="col-12">
                 <label class="form-label fw-semibold" style="font-size:.88rem;">Message *</label>
                 {{ form.message }}
                 {% if form.message.errors %}<div class="text-danger mt-1" style="font-size:.82rem;">{{ form.message.errors.0 }}</div>{% endif %}

@@ -12,11 +12,11 @@ import datetime
 
 def home(request):
     research_areas = ResearchArea.objects.all()[:6]
-    team_leaders = TeamMember.objects.filter(role__in=['director', 'faculty'])[:4]
-    recent_publications = Publication.objects.all()[:4]
-    ongoing_projects = Project.objects.filter(status='ongoing')[:3]
-    featured_events = Event.objects.filter(date__gte=datetime.date.today())[:3]
-    recent_news = News.objects.filter(is_featured=True)[:3]
+    team_leaders = TeamMember.objects.filter(role__in=['director', 'faculty']).prefetch_related('research_areas')[:4]
+    recent_publications = Publication.objects.prefetch_related('team_members', 'research_areas', 'projects')[:4]
+    ongoing_projects = Project.objects.filter(status='ongoing').select_related('principal_investigator').prefetch_related('research_areas')[:3]
+    featured_events = Event.objects.filter(date__gte=datetime.date.today()).prefetch_related('related_projects')[:3]
+    recent_news = News.objects.filter(is_featured=True).prefetch_related('related_projects', 'related_events')[:3]
     partners = Partner.objects.all()
 
     default_objectives = [
@@ -77,10 +77,25 @@ def research(request):
 
 
 def project_detail(request, pk):
-    project = get_object_or_404(Project, pk=pk)
+    project = get_object_or_404(
+        Project.objects.select_related('principal_investigator').prefetch_related(
+            'research_areas',
+            'team_members',
+            'partners',
+            'publications',
+            'events',
+            'news_items',
+            'activities',
+        ),
+        pk=pk,
+    )
     context = {
         'page_title': project.title,
         'project': project,
+        'related_publications': project.publications.all()[:5],
+        'related_events': project.events.all()[:5],
+        'related_news': project.news_items.all()[:5],
+        'related_activities': project.activities.all()[:5],
     }
     return render(request, 'icas/project_detail.html', context)
 
@@ -135,8 +150,21 @@ def events(request):
     return render(request, 'icas/events.html', context)
 
 def event_detail(request, pk):
-    event = get_object_or_404(Event, pk=pk)
-    context = {'event': event}
+    event = get_object_or_404(
+        Event.objects.prefetch_related(
+            'organizers',
+            'related_projects',
+            'research_areas',
+            'news_items',
+            'activities',
+        ),
+        pk=pk,
+    )
+    context = {
+        'event': event,
+        'related_news': event.news_items.all()[:5],
+        'related_activities': event.activities.all()[:5],
+    }
     return render(request, 'icas/event_detail.html', context)
 
 
@@ -149,7 +177,14 @@ def news_list(request):
     return render(request, 'icas/news.html', context)
 
 def news_detail(request, pk):
-    news = get_object_or_404(News, pk=pk)
+    news = get_object_or_404(
+        News.objects.prefetch_related(
+            'related_projects',
+            'related_events',
+            'related_publications',
+        ),
+        pk=pk,
+    )
     context = {'news': news}
     return render(request, 'icas/news_detail.html', context)
 
@@ -162,7 +197,10 @@ def activities(request):
     return render(request, 'icas/activities.html', context)
 
 def activity_detail(request, pk):
-    activity = get_object_or_404(Activity, pk=pk)
+    activity = get_object_or_404(
+        Activity.objects.select_related('related_project', 'related_event').prefetch_related('participants'),
+        pk=pk,
+    )
     context = {'activity': activity}
     return render(request, 'icas/activity_detail.html', context)
 
@@ -184,6 +222,7 @@ def contact(request):
                 email=form.cleaned_data['email'],
                 subject=form.cleaned_data['subject'],
                 message=form.cleaned_data['message'],
+                related_project=form.cleaned_data['related_project'],
             )
             messages.success(request, 'Thank you! Your message has been received. We will get back to you soon.')
             return redirect('contact')

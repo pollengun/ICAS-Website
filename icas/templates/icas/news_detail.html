@@ -41,6 +41,45 @@
           {{ news.content|linebreaks }}
         </div>
 
+        {% if news.related_projects.all or news.related_events.all or news.related_publications.all %}
+        <div class="mt-4 p-4" style="background:#f8f9fb;border:1px solid #e9edf5;border-radius:12px;">
+          <h5 style="color:#0d1f3c;">Connected Entities</h5>
+
+          {% if news.related_projects.all %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Projects:</strong>
+            <ul class="mb-0 mt-2 ps-3">
+              {% for project in news.related_projects.all %}
+              <li><a href="{% url 'project_detail' project.pk %}">{{ project.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          {% if news.related_events.all %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Events:</strong>
+            <ul class="mb-0 mt-2 ps-3">
+              {% for event in news.related_events.all %}
+              <li><a href="{% url 'event_detail' event.pk %}">{{ event.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+
+          {% if news.related_publications.all %}
+          <div class="mt-3">
+            <strong style="font-size:.92rem;">Publications:</strong>
+            <ul class="mb-0 mt-2 ps-3">
+              {% for publication in news.related_publications.all %}
+              <li>{{ publication.title }}</li>
+              {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+        {% endif %}
+
         <!-- Back button -->
         <div class="mt-5">
           <a href="{% url 'news' %}" class="btn-icas-outline btn">
